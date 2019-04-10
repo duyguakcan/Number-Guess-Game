@@ -26,3 +26,8 @@ Against computer AI number guess game. Also known as "Mastermind" but with numbe
   Result => +2 (because 2 digits at right place), -1 (because 1 digit which is '4' exists but at wrong place)
   
 3- If a person guesses right, then it is win condition.
+
+## Might be interesting for you:
+
+1- When computer is guessing, it uses genetic algorithm to create new guess. It takes around 30-40 guesses
+
