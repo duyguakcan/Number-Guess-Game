@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="personGuessNumber.js"></script>
+<script src="computerGuessNumber.js"></script>
+<script>
+
+var testNumber = 1;
+var isFirst = true;
+	
+//compare numbers and get results
+function compareNumbers()
+{
+	var number = $("#txtNumber").val();
+	var guessNumber = $("#txtGuessNumber").val();
+	if(validations(guessNumber))
+	{
+		var personGuessNumber = new PersonGuessNumber(number,guessNumber);
+		var result = personGuessNumber.checkNumbers();
+		var pNum = result['positive'];
+		var nNum = result['negative'];
+
+		if(pNum ==4)
+		{
+			$('#lblNotification').text("Congratulations");
+			$('#txtPositive').val(pNum);
+			$('#txtNegative').val(nNum);			
+		}
+		else
+		{
+			$('#txtPositive').val(pNum);
+			$('#txtNegative').val(nNum);
+		}
+		
+	}
+}
+
+//check number digits
+function validations(guessNumber)
+{
+	var result = true;
+	if(guessNumber.length!=4)
+	{
+		window.alert("Number should be 4 digits");
+		result = false;
+	}
+	return result;
+}
+
+//create a default number while page is loading
+$( document ).ready(function() {
+	var val = createDistinctNumber(4);
+	$("#txtNumber").val(val);
+	console.log(val);
+	
+	var guessNumber = $("#txtGuessNumber").val();
+	
+	if(isFirst)
+	{
+		var val = createDistinctNumber(4);
+		$("#txtGuessNumber").val(val);
+		isFirst = false;
+	}
+	
+	$('#lblTestNumber').text("generation:" + testNumber.toString());
+
+});
+
+function createDistinctNumber(numberLength)
+{
+	var newNumber = "";
+	while(newNumber.length !== numberLength)
+	{
+		var num = Math.floor(Math.random() * 10);
+		if(newNumber.length===0 && num ===0)
+			continue;
+			
+		if(!newNumber.includes(num))	
+			newNumber += num;
+	}
+	return newNumber;
+}
+
+	
+function controlNumbers()
+{
+	var guessNumber = $("#txtGuessNumber").val();
+	
+	var pNum = $("#txtPositive").val();
+	var nNum = $("#txtNegative").val();
+	var nNum = Math.abs(nNum);
+	
+	var result = checkNumber(guessNumber,Number(pNum),Number(nNum));
+	$("#txtGuessNumber").val(result);
+	
+	testNumber = testNumber +1;
+	
+	$('#lblTestNumber').text("test:" + testNumber.toString());
+}
+	
+
+</script>
+
+</head>
+<body>
+<table>
+	<tr>
+		<td>
+			Computer 1
+		</td>
+		<td>
+			Computer 2
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table>
+				<tr>
+					<td>
+						Guess Number:
+					</td>
+					<td>
+						<input type="number" name="txtGuessNumber" id="txtGuessNumber" disabled min="1000" max="9999">
+					</td>	
+				</tr>
+				<tr>
+					<td>
+						<button id="btnNumberGuess" onclick="controlNumbers();">Get New Number</button></br>
+						<label id="lblTestNumber"></label>
+					</td>
+				</tr>
+
+			</table>
+		</td>	
+		<td>
+			<table>
+				<tr>
+					<td>
+						Hold Number: 
+					</td>
+					<td>
+						<input id="txtNumber"  size="6" disabled >
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<button id="btnNumberGuess" onclick="compareNumbers();">Check</button>
+					</td>
+					<td>
+						<label id="lblNotification">Result:</label></br>
+						Positive: <input type="number" name="txtPositive" id="txtPositive" disabled min="0" max="4">
+						Negative:<input type="number" name="txtNegative" id="txtNegative" disabled max="0" min="-4">					
+					</td>
+				</tr>	
+
+			</table>
+		</td>
+	</tr>
+
+</table>
+
+
+
+</body>
+</html>
