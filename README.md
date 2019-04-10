@@ -31,3 +31,6 @@ Against computer AI number guess game. Also known as "Mastermind" but with numbe
 
 1- When computer is guessing, it uses genetic algorithm to create new guess. It takes around 30-40 guesses
 
+References
+https://www.geeksforgeeks.org/genetic-algorithms/
+https://pdfs.semanticscholar.org/0a9e/a477abb8e3c286b77cef2b68da582d720e20.pdf
